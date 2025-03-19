@@ -41,7 +41,7 @@ plt.legend()
 plt.show()
 
 # PREDICCION
-horas_a_predecir = [2.5, 5.0, 8.0, 9.5]  # valores para predecir 
+horas_a_predecir = [2.5, 5.0, 8.0, 9.5]  # valores para predecir tiempo de estudio y puntaje
 for horas in horas_a_predecir:
     score_lineal = linear_model.predict([[horas]])
     score_polinomial = poly_model.predict(poly.transform([[horas]]))

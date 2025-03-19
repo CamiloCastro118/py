@@ -41,7 +41,7 @@ plt.legend()
 plt.show()
 
 # PREDICCION
-temp_max_a_predecir = [10, 15, 20, 25]  # Cambia estos valores para predecir con otras temperaturas maximas
+temp_max_a_predecir = [10, 15, 20, 25]  # valores para predecir temperatura maxima y minima
 for temp_max in temp_max_a_predecir:
     temp_min_lineal = linear_model.predict([[temp_max]])
     temp_min_polinomial = poly_model.predict(poly.transform([[temp_max]]))

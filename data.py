@@ -41,7 +41,7 @@ plt.legend()
 plt.show()
 
 # PREDICCION
-altura_a_predecir = 1.79  # Cambia este valor para predecir con otra altura
+altura_a_predecir = 1.79  # valor para predicir altura en cm en el modelo polinomial y su peso en kg
 peso_lineal = linear_model.predict([[altura_a_predecir]])
 peso_polinomial = poly_model.predict(poly.transform([[altura_a_predecir]]))
 
