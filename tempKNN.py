@@ -11,12 +11,11 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, confusion_matrix
 import seaborn as sns
 
-# ====================== Cargar y limpiar datos ======================
 
 # cargar el dataset
 dataset = pd.read_csv('weather_classification_data.csv')
 
-# mostrar valores únicos para revisar inconsistencias
+# mostrar valores unicos 
 print("Valores en 'Weather Type':", dataset['Weather Type'].unique())
 
 # mapear la columna Weather Type
@@ -48,7 +47,6 @@ plt.xlabel('Wind Speed')
 plt.ylabel('Atmospheric Pressure')
 plt.legend()
 
-# ====================== Modelo SVM ======================
 
 # dividir en conjunto de entrenamiento y prueba
 x_train, x_test, y_train, y_test = train_test_split(dataset, y, train_size=0.8, random_state=42)
@@ -57,7 +55,7 @@ x_train, x_test, y_train, y_test = train_test_split(dataset, y, train_size=0.8, 
 plt.scatter(x_test['Wind Speed'], x_test['Atmospheric Pressure'], c='black', label='Datos de validacion', marker='x')
 plt.legend()
 
-# Definir y entrenar el modelo SVM
+# Definir y entrenar 
 modelo = SVC(kernel='linear')
 modelo.fit(x_train, y_train)
 
@@ -70,7 +68,6 @@ y_pred = modelo.predict(x_test)
 acc = accuracy_score(y_test, y_pred)
 print('Precisión del modelo SVM:', round(acc * 100, 2), '%')
 
-# matriz 
 cm = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(5,4))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
