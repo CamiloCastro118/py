@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Created on May 20, 2025
-@author: JPLOPEZ"""
+@author: camilo"""
 
 # ================= LIBRERIAS =================
 import pandas as pd
@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score
 # ============ CARGAR EL DATASET =============
 dataset = pd.read_csv('weather_classification_data.csv')
 
-# ============ ETIQUETAS ======================
+# etiquetas
 # Codificar la columna objetivo ('Weather Type')
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(dataset['Weather Type'])
@@ -25,13 +25,13 @@ dataset = dataset.drop('Weather Type', axis=1)
 # Convertir variables categoricas en variables dummy
 dataset = pd.get_dummies(dataset)
 
-# ============ NOMBRES DE LAS CLASES =========
+# nombres de la clase
 class_names = label_encoder.classes_
 
-# ============ COLORES PARA GRAFICAR =========
+# colores grafico
 colors = plt.cm.get_cmap('Set1', len(class_names))
 
-# ============ GRAFICO DE DISPERSION =========
+#grafico de dispersion
 plt.figure(dpi=500)
 for label in np.unique(y):
     plt.scatter(
@@ -45,14 +45,14 @@ plt.xlabel('Atmospheric Pressure')
 plt.ylabel('Humidity')
 plt.legend()
 
-# ============ PARTICION DEL DATASET =========
+# dataset
 x_train, x_test, y_train, y_test = train_test_split(dataset, y, train_size=0.8, random_state=42)
 
-# ============ INFO DE MUESTRAS ==============
+
 print('Datos para entrenar:', x_train.shape[0])
 print('Datos para validación:', x_test.shape[0])
 
-# ============ GRAFICAR DATOS DE VALIDACION ==
+# graficar
 plt.scatter(
     x_test['Atmospheric Pressure'],
     x_test['Humidity'],
@@ -61,14 +61,14 @@ plt.scatter(
     label='Datos de Validacion'
 )
 
-# ============ ENTRENAR MODELO SVM ===========
+# entrenar modelo svm
 model = SVC()
 model.fit(x_train, y_train)
 
-# ============ VALIDAR MODELO ================
+# validacion del modelo
 y_pred = model.predict(x_test)
 
-# ============ EVALUACION =====================
+# evaluacion
 acc = accuracy_score(y_test, y_pred)
 print('Acierto:', round(acc * 100, 2), '%')
 
