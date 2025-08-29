@@ -2,25 +2,26 @@
 """Created on May 19, 2025
 @author: Camilo"""
 
-# Librerias
+# Librerias 
 
 import matplotlib.pyplot as plt
 import numpy as np
 import random
 
-# Se crean dos arreglos x, y que guardan la posicion en cada paso y iniciando en 0
+# Se crean tres arreglos x, y, z que guardan la posicion en cada paso y iniciando en 0
 
-def caminata_paciente_2D(n):
-    # Inicializacion de coordenadas
-    x, y = np.zeros(n), np.zeros(n)
+def caminata_paciente(n):
+    # Inicialización de coordenadas
+    x, y, z = np.zeros(n), np.zeros(n), np.zeros(n)
 
 # Posibles movimientos adelante-atras mover eje x 
-# izquierda-derecha mover eje y
+# iozquierda-derecha mover eje y
+# subir-bajar cambiar piso en eje Z
 
-    movimientos = ["ADELANTE", "ATRAS", "IZQUIERDA", "DERECHA"]
+    movimientos = ["ADELANTE", "ATRAS", "IZQUIERDA", "DERECHA", "SUBIR", "BAJAR"]
 
 # Bucle de simulacion
-# Se elige un movimiento al azar en cada interaccion con el bucle hasta completar n pasos
+# Se elige un moviviento al azar en cada interaccion con el bucle hasta completar n pasos
 
     for i in range(1, n):
         paso = random.choice(movimientos)
@@ -28,33 +29,43 @@ def caminata_paciente_2D(n):
         if paso == "ADELANTE":
             x[i] = x[i - 1] + 1
             y[i] = y[i - 1]
+            z[i] = z[i - 1]
         elif paso == "ATRAS":
             x[i] = x[i - 1] - 1
             y[i] = y[i - 1]
+            z[i] = z[i - 1]
         elif paso == "DERECHA":
             x[i] = x[i - 1]
             y[i] = y[i - 1] + 1
+            z[i] = z[i - 1]
         elif paso == "IZQUIERDA":
             x[i] = x[i - 1]
             y[i] = y[i - 1] - 1
+            z[i] = z[i - 1]
+        elif paso == "SUBIR":
+            x[i] = x[i - 1]
+            y[i] = y[i - 1]
+            z[i] = z[i - 1] + 1   # Subir un piso
+        elif paso == "BAJAR":
+            x[i] = x[i - 1]
+            y[i] = y[i - 1]
+            z[i] = z[i - 1] - 1   # Bajar un piso
 
-    return x, y
-
+    return x, y, z
 # Simulacion caminata de n pasos
-x_data, y_data = caminata_paciente_2D(89)
+n = 100
+x_data, y_data, z_data = caminata_paciente(n)
 
-# Grafico en 2D
-plt.figure(dpi=150)
-plt.plot(x_data, y_data, alpha=0.9, color="blue")
-plt.scatter(x_data[0], y_data[0], color="green", s=50, label="Posicion inicial")
-plt.scatter(x_data[-1], y_data[-1], color="red", s=50, label="Posicion final")
+# Grafico en 3D
+fig = plt.figure(dpi=150)
+ax = fig.add_subplot(111, projection='3d')
+ax.plot(x_data, y_data, z_data, alpha=0.9, color="blue")
+ax.scatter(x_data[-1], y_data[-1], z_data[-1], color="red", s=50, label="Posición final")
 
 # Etiquetas
-plt.title("Caminata aleatoria de un paciente en el hospital 2D")
-plt.xlabel("Pasillo X (adelante/atras)")
-plt.ylabel("Pasillo Y (izquierda/derecha)")
-plt.legend()
-plt.grid(True)
-plt.axis("equal")  # Mantiene escala igual en ambos ejes
+ax.set_title(f"Caminata aleatoria de un paciente en el hospital\nNumero de pasos: {n}")
+ax.set_xlabel("Pasillo X (adelante/atrás)")
+ax.set_ylabel("Pasillo Y (izquierda/derecha)")
+ax.set_zlabel("Pisos (subir/bajar)")
+ax.legend()
 plt.show()
-
