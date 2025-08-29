@@ -52,9 +52,9 @@ def caminata_paciente(n):
             z[i] = z[i - 1] - 1   # Bajar un piso
 
     return x, y, z
-
 # Simulacion caminata de n pasos
-x_data, y_data, z_data = caminata_paciente(89)
+n = 30
+x_data, y_data, z_data = caminata_paciente(n)
 
 # Grafico en 3D
 fig = plt.figure(dpi=150)
@@ -63,7 +63,7 @@ ax.plot(x_data, y_data, z_data, alpha=0.9, color="blue")
 ax.scatter(x_data[-1], y_data[-1], z_data[-1], color="red", s=50, label="Posición final")
 
 # Etiquetas
-ax.set_title("Caminata aleatoria de un paciente en el hospital")
+ax.set_title(f"Caminata aleatoria de un paciente en el hospital\nNumero de pasos: {n}")
 ax.set_xlabel("Pasillo X (adelante/atrás)")
 ax.set_ylabel("Pasillo Y (izquierda/derecha)")
 ax.set_zlabel("Pisos (subir/bajar)")
